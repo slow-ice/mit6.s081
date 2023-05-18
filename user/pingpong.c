@@ -20,17 +20,17 @@ int main(char argc, char *argv[]) {
 
     if (pid == 0) {
         read(p[0], bytes, MAXSIZE);
-        // close(p[0]);
+        close(p[0]);
         printf("%d: received ping\n", getpid());
         write(p[1], "1", MAXSIZE);
-        // close(p[1]);
+        close(p[1]);
     } else {
         write(p[1], "hello", MAXSIZE);
-        // close(p[1]);
+        close(p[1]);
         // wait for child process to receive ping
         wait(0);
         read(p[0], bytes, MAXSIZE);
-        // close(p[0]);
+        close(p[0]);
         printf("%d: received pong\n", getpid());
     }
     exit(0);
